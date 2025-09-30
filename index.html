@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Engen se acerca</title>
+    
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial Black', sans-serif;
+            padding-top: 50px;
+            background-color: #4B0082;
+            color: #E0E0E0;
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        #gif-container {
+            margin-bottom: 20px;
+        }
+
+        #audio-player-container {
+            margin-bottom: 40px;
+        }
+        
+        .youtube-audio-player {
+            display: inline-block;
+            width: 50px;
+            height: 50px; 
+            overflow: hidden; 
+            border-radius: 50%;
+            border: 3px solid #FFD700;
+        }
+
+        .youtube-audio-player iframe {
+            width: 100%; 
+            height: 100%; 
+            transform: scale(3.5); 
+            transform-origin: top left;
+        }
+
+        #cuenta-regresiva {
+            font-size: 2.8em;
+            font-weight: bold;
+            display: inline-block;
+            padding: 25px 40px;
+            margin-top: 30px;
+            border: 4px solid #DAA520; 
+            border-radius: 15px;
+            color: #8B0000; 
+            background-color: #FFD700; 
+            min-width: 450px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+
+        #cuenta-regresiva.finalizado {
+            background-color: #32CD32;
+            color: white;
+            border-color: #228B22;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.7);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>El Engen llegara en...</h1>
+
+    <div id="gif-container">
+        <img 
+            src="https://media3.giphy.com/media/3ohhwfAa9rbXaZe86c/giphy.gif" 
+            alt="Esqueleto gracioso" 
+            style="max-width: 250px; height: auto; border-radius: 50%; border: 5px solid #FFD700;"
+        >
+    </div>
+    
+    <div id="audio-player-container">
+        <p style="font-size: 0.9em; margin-bottom: 10px;">Pausar/Reproducir:</p>
+        <div class="youtube-audio-player">
+            <iframe 
+                src="https://www.youtube.com/embed/_9F_AaVoI5I?autoplay=1&controls=1&modestbranding=1&mute=0"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+    
+    <p id="cuenta-regresiva">Cargando...</p>
+
+    <script>
+        const FECHA_FINAL = new Date("October 4, 2025 20:00:00").getTime();
+
+        function actualizarCuentaAtras() {
+            const ahora = new Date().getTime();
+            const distancia = FECHA_FINAL - ahora;
+            const elementoContador = document.getElementById("cuenta-regresiva");
+
+            if (distancia < 0) {
+                clearInterval(intervalo);
+                
+                elementoContador.innerHTML = "🎉 **El Engen ha llegado** 🎉";
+                elementoContador.classList.add('finalizado'); 
+                return;
+            }
+            
+            // Cálculos
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            elementoContador.innerHTML = 
+                `💀 ${dias} días ${horas} horas ${minutos} minutos ${segundos} segundos 💀`;
+        }
+
+        const intervalo = setInterval(actualizarCuentaAtras, 1000);
+        actualizarCuentaAtras(); 
+    </script>
+
+</body>
+</html>
