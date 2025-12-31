@@ -3,45 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Engen se acerca</title>
-    
+    <title>El aesede se acerca</title>
+
+    <link rel="icon" type="image/png" href="2fuego.png">
+
     <style>
         body {
             text-align: center;
             font-family: 'Arial Black', sans-serif;
             padding-top: 50px;
-            background-color: #4B0082;
+            background-color: #4B0082; 
             color: #E0E0E0;
         }
 
         h1 {
-            color: #FFD700;
+            color: #FFD700; 
             font-size: 3em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             margin-bottom: 30px;
         }
+
         #gif-container {
             margin-bottom: 20px;
         }
 
-        #audio-player-container {
-            margin-bottom: 40px;
-        }
-        
-        .youtube-audio-player {
+        #iniciar-musica {
             display: inline-block;
-            width: 50px;
-            height: 50px; 
-            overflow: hidden; 
-            border-radius: 50%;
-            border: 3px solid #FFD700;
+            background-color: #8B0000; 
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+            cursor: pointer; 
+            box-shadow: 0 4px #550000; 
+            transition: all 0.1s ease;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
-        .youtube-audio-player iframe {
-            width: 100%; 
-            height: 100%; 
-            transform: scale(3.5); 
-            transform-origin: top left;
+        #iniciar-musica:active {
+            box-shadow: 0 2px #550000;
+            transform: translateY(2px);
         }
 
         #cuenta-regresiva {
@@ -67,44 +69,51 @@
     </style>
 </head>
 <body>
+    
+    <audio id="background-audio" loop>
+        <source src="firanjanger.mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
-    <h1>El Engen llegara en...</h1>
+    <h1>El aesede llegara en...</h1>
 
     <div id="gif-container">
         <img 
-            src="https://media3.giphy.com/media/3ohhwfAa9rbXaZe86c/giphy.gif" 
+            src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGR2dnJ3bjhqZHo4MXltb3JzZjJidHZ1cnJncHdnMXplbHFzYTN2diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bXWpFtVrOyKo8/giphy.gif" 
             alt="Esqueleto gracioso" 
             style="max-width: 250px; height: auto; border-radius: 50%; border: 5px solid #FFD700;"
         >
     </div>
     
-    <div id="audio-player-container">
-        <p style="font-size: 0.9em; margin-bottom: 10px;">Control de Audio (Pausar/Reproducir):</p>
-        <div class="youtube-audio-player">
-            <iframe 
-                src="https://www.youtube.com/embed/_9F_AaVoI5I?autoplay=1&controls=1&modestbranding=1&mute=0"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen
-            ></iframe>
-        </div>
+    <div id="iniciar-musica">
+        🔥 No presiones este boton 🔥
     </div>
-    
-    
+
     <p id="cuenta-regresiva">Cargando...</p>
 
     <script>
-        const FECHA_FINAL = new Date("October 4, 2025 20:00:00").getTime();
+        const FECHA_FINAL = new Date("January 17, 2026 20:00:00").getTime();
+        
+        const audioElement = document.getElementById('background-audio');
+        const botonMusica = document.getElementById('iniciar-musica');
+
+        botonMusica.addEventListener('click', function() {
+            audioElement.play().catch(error => {
+            });
+            botonMusica.style.display = 'none'; 
+        });
 
         function actualizarCuentaAtras() {
-            const ahora = new Date().getTime();
+            const ahora = new Date().getTime(); 
             const distancia = FECHA_FINAL - ahora;
             const elementoContador = document.getElementById("cuenta-regresiva");
 
             if (distancia < 0) {
                 clearInterval(intervalo);
-                
-                elementoContador.innerHTML = "🎉 **El Engen ha llegado** 🎉";
+
+                audioElement.pause();
+
+                elementoContador.innerHTML = "🎉 **El aesede ha llegado** 🎉";
                 elementoContador.classList.add('finalizado'); 
                 return;
             }
@@ -124,9 +133,4 @@
     </script>
 
 </body>
-
 </html>
-
-
-
-
